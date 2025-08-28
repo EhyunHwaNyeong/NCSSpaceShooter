@@ -140,6 +140,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e8e177f22add5e54f9529adadcec511c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  tr: {fileID: 0}
+  moveSpeed: 10
+  turnSpeed: 80
 --- !u!1001 &179172595
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -219,6 +222,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e8e177f22add5e54f9529adadcec511c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  tr: {fileID: 0}
+  moveSpeed: 10
+  turnSpeed: 360
 --- !u!114 &179172599
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -231,6 +237,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e8e177f22add5e54f9529adadcec511c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  tr: {fileID: 0}
+  moveSpeed: 10
+  turnSpeed: 80
 --- !u!1001 &451357253
 PrefabInstance:
   m_ObjectHideFlags: 0

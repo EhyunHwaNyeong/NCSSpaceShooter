@@ -4,8 +4,9 @@ using UnityEngine;
 
 public class PlayerCtrl : MonoBehaviour
 {
-    Transform tr;
-    public float moveSpeed = 10.0f;
+    [SerializeField] Transform tr;
+    [SerializeField] float moveSpeed = 10.0f;
+    [SerializeField] float turnSpeed = 360.0f;
     void Start()
     {
         tr = GetComponent<Transform>();
@@ -16,11 +17,12 @@ public class PlayerCtrl : MonoBehaviour
     {
         float h = Input.GetAxis("Horizontal");
         float v = Input.GetAxis("Vertical");
-        Debug.Log($"h= {h}");
-        Debug.Log($"v= {v}");
+        float r = Input.GetAxis("Mouse X");
         // Transform.position
-        //transform.position += new Vector3(0, 0, 1);
+        // transform.position += new Vector3(0, 0, 1);
         // normalized vector
-        tr.Translate(Vector3.forward * v * Time.deltaTime * moveSpeed, Space.Self);
+        Vector3 moveDir = (Vector3.forward * v) + (Vector3.right * h);
+        tr.Translate(moveDir.normalized * moveSpeed * Time.deltaTime);
+        tr.Rotate(Vector3.up * turnSpeed * Time.deltaTime * r);
     }
 }
