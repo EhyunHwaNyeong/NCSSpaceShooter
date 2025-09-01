@@ -49,7 +49,7 @@ public class PlayerCtrl : MonoBehaviour
         {
             anime.CrossFade("RunR", TIME_INTER);
         }
-        else if (h < -INPUT_VALUE)
+        else if (h <= -INPUT_VALUE)
         {
             anime.CrossFade("RunL", TIME_INTER);
         }
