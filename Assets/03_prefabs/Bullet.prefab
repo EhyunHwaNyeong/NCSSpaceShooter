@@ -65,7 +65,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damage: 20
-  force: 3600
+  force: 1500
 --- !u!135 &5233656164026838688
 SphereCollider:
   m_ObjectHideFlags: 0

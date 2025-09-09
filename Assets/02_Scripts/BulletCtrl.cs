@@ -5,7 +5,7 @@ using UnityEngine;
 public class BulletCtrl : MonoBehaviour
 {
     public float damage = 20.0f;
-    public float force = 3600.0f;
+    public float force = 1500.0f;
     Rigidbody rb;
     void Start()
     {
