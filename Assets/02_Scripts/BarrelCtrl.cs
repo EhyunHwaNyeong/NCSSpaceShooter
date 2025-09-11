@@ -9,12 +9,15 @@ public class BarrelCtrl : MonoBehaviour
     const float DESTROY_BARREL = 3.0f;
     const float BARREL_MASS = 1.0f;
     const float UP_FORCE = 1500.0f;
+    const float MID_FORCE = 1200.0f;
+
 
 
     [SerializeField] GameObject expEffect;
-
-    public Texture[] textures;
+    public float radius = 10.0f;
+    [SerializeField]  Texture[] textures;
     new MeshRenderer renderer;
+    
 
     Transform tr;
     Rigidbody rb;
@@ -49,9 +52,25 @@ public class BarrelCtrl : MonoBehaviour
 
         Destroy(exp, DESTROY_EXP);
 
-        rb.mass = BARREL_MASS;
-        rb.AddForce(Vector3.up * UP_FORCE);
+        // rb.mass = BARREL_MASS;
+        // rb.AddForce(Vector3.up * UP_FORCE);
+        IndirectDamage(tr.position);
+
         Destroy(gameObject, DESTROY_BARREL);
 
+    }
+Collider[] colls = new Collider[10];
+    void IndirectDamage(Vector3 pos)
+    {
+        // Collider[] Collision = Physics.OverlapSphere(pos, radius, 1 << 3);
+        Physics.OverlapCapsuleNonAlloc(pos, radius, colls, 1 << 3);
+        foreach (var item in colls)
+        {
+            if (item == null) continue;
+            rb = item.GetComponent<Rigidbody>();
+            rb.mass = BARREL_MASS;
+            rb.constraints = RigidbodyConstraints.None;
+            rb.AddExplosionForce(UP_FORCE, pos, radius, MID_FORCE);
+        }
     }
 }
