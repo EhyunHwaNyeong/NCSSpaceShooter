@@ -59,11 +59,11 @@ public class BarrelCtrl : MonoBehaviour
         Destroy(gameObject, DESTROY_BARREL);
 
     }
-Collider[] colls = new Collider[10];
+    Collider[] colls = new Collider[10];
     void IndirectDamage(Vector3 pos)
     {
         // Collider[] Collision = Physics.OverlapSphere(pos, radius, 1 << 3);
-        Physics.OverlapCapsuleNonAlloc(pos, radius, colls, 1 << 3);
+        Physics.OverlapSphereNonAlloc(pos, radius, colls, 1 << 3);
         foreach (var item in colls)
         {
             if (item == null) continue;

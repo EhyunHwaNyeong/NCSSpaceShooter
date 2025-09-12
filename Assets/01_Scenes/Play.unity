@@ -432,6 +432,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bullet: {fileID: 5233656164026838748, guid: e2af53e3fa6c1164ba7801954ccb8978, type: 3}
   firePos: {fileID: 1376156976}
+  fireSfx: {fileID: 0}
 --- !u!1001 &270571318
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1216,7 +1217,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1490792605}
   m_Layer: 0
-  m_Name: ===_STAGES
+  m_Name: ===STAGES
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1871,10 +1872,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 5233656164026838689, guid: e2af53e3fa6c1164ba7801954ccb8978, type: 3}
-      propertyPath: force
-      value: 1500
-      objectReference: {fileID: 0}
     - target: {fileID: 5233656164026838748, guid: e2af53e3fa6c1164ba7801954ccb8978, type: 3}
       propertyPath: m_Name
       value: Bullet
