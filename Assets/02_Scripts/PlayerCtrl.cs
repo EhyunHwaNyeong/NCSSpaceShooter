@@ -6,16 +6,21 @@ public class PlayerCtrl : MonoBehaviour
 {
     const float TIME_INTER = 0.25f;
     const float INPUT_VALUE = 0.1f;
+    const float TURN_SPEED = 360.0f;
     Transform tr;
     Animation anime;
     [SerializeField] float moveSpeed = 5.0f;
-    [SerializeField] float turnSpeed = 360.0f;
-    void Start()
+    [SerializeField] float turnSpeed = TURN_SPEED;
+    IEnumerator Start()
     {
         tr = GetComponent<Transform>();
         anime = GetComponent<Animation>();
 
         anime.Play("Idle");
+
+        turnSpeed = 0.0f;
+        yield return new WaitForSeconds(0.3f);
+        turnSpeed = TURN_SPEED;
     }
 
     void Update()
