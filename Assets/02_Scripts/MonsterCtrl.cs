@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Xml.Serialization;
 using JetBrains.Annotations;
 using Unity.VisualScripting;
 using UnityEditor;
@@ -24,15 +25,18 @@ public class MonsterCtrl : MonoBehaviour
     Transform playerTr;
     NavMeshAgent agent;
     Animator anim;
+    GameObject bloodEffect;
 
     readonly int hashTrace = Animator.StringToHash("IsTrace");
     readonly int hashAttack = Animator.StringToHash("IsAttack");
+    readonly int hashHit = Animator.StringToHash("Hit");
     void Start()
     {
         monsterTr = GetComponent<Transform>();
         playerTr = GameObject.FindWithTag("PLAYER").GetComponent<Transform>();
         agent = GetComponent<NavMeshAgent>();
         anim = GetComponent<Animator>();
+        bloodEffect = Resources.Load<GameObject>("BloodSprayEffect");
         StartCoroutine(CheckMonsterState());
         StartCoroutine(MonsterAction());
     }
@@ -85,6 +89,22 @@ public class MonsterCtrl : MonoBehaviour
             }
             yield return new WaitForSeconds(0.3f);
         }
+    }
+    void OnCollisionEnter(Collision coll)
+    {
+        if (coll.collider.CompareTag("BULLET"))
+        {
+            Destroy(coll.gameObject);
+            anim.SetTrigger(hashHit);
+            Vector3 pos = coll.GetContact(0).point;
+            Quaternion rot = Quaternion.LookRotation(-coll.GetContact(0).normal);
+            ShowBooldEffect(pos, rot);
+        }
+    }
+    void ShowBooldEffect(Vector3 pos, Quaternion rot)
+    {
+        GameObject blood = Instantiate<GameObject>(bloodEffect, pos, rot, monsterTr);
+        Destroy(blood, 1.0f);
     }
     void OnDrawGizmos()
     {
