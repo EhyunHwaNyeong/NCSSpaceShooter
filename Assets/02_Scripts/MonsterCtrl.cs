@@ -83,7 +83,7 @@ public class MonsterCtrl : MonoBehaviour
                 case State.ATTACK:
                     anim.SetBool(hashAttack, true);
                     break;
-                    
+
                 case State.DIE:
                     break;
             }
@@ -118,5 +118,9 @@ public class MonsterCtrl : MonoBehaviour
             Gizmos.color = Color.red;
             Gizmos.DrawWireSphere(transform.position, attackDist);
         }
+    }
+    void OnTriggerEnter(Collider coll)
+    {
+        Debug.Log(coll.gameObject.name);
     }
 }

@@ -11,8 +11,11 @@ public class PlayerCtrl : MonoBehaviour
     Animation anime;
     [SerializeField] float moveSpeed = 5.0f;
     [SerializeField] float turnSpeed = TURN_SPEED;
+    readonly float initHp = 100.0f;
+    float currHp;
     IEnumerator Start()
     {
+        currHp = initHp;
         tr = GetComponent<Transform>();
         anime = GetComponent<Animation>();
 
@@ -62,5 +65,21 @@ public class PlayerCtrl : MonoBehaviour
         {
             anime.CrossFade("Idle", TIME_INTER);
         }
-    }   
+    }
+    void OnTriggerEnter(Collider coll)
+    {
+        if (currHp >= 0.0f && coll.CompareTag("PUNCH"))
+        {
+            currHp -= 10.0f;
+            Debug.Log($"Player hp = {currHp / initHp}");
+            if (currHp <= 0.0f)
+            {
+                PlayerDie();
+            }
+        }
+    }
+    void PlayerDie()
+    {
+        Debug.Log("Player Die !");
+    }
 }
