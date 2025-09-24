@@ -6,6 +6,7 @@ using Unity.VisualScripting;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.Rendering;
 
 public class MonsterCtrl : MonoBehaviour
 {
@@ -30,6 +31,16 @@ public class MonsterCtrl : MonoBehaviour
     readonly int hashTrace = Animator.StringToHash("IsTrace");
     readonly int hashAttack = Animator.StringToHash("IsAttack");
     readonly int hashHit = Animator.StringToHash("Hit");
+    readonly int hashPlayerDie = Animator.StringToHash("PlayerDie");
+    readonly int hashSpeed = Animator.StringToHash("Speed");
+    void OnEnable()
+    {
+        PlayerCtrl.OnPlayerDie += this.OnPlayerDie;
+    }
+    void OnDisable()
+    {
+        PlayerCtrl.OnPlayerDie -= this.OnPlayerDie;
+    }
     void Start()
     {
         monsterTr = GetComponent<Transform>();
@@ -122,5 +133,12 @@ public class MonsterCtrl : MonoBehaviour
     void OnTriggerEnter(Collider coll)
     {
         Debug.Log(coll.gameObject.name);
+    }
+    void OnPlayerDie()
+    {
+        StopAllCoroutines();
+        agent.isStopped = true;
+        anim.SetFloat(hashSpeed, Random.Range(0.8f, 1.2f));
+        anim.SetTrigger(hashPlayerDie);
     }
 }

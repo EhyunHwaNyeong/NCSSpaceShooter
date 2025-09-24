@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class PlayerCtrl : MonoBehaviour
@@ -13,6 +14,8 @@ public class PlayerCtrl : MonoBehaviour
     [SerializeField] float turnSpeed = TURN_SPEED;
     readonly float initHp = 100.0f;
     float currHp;
+    public delegate void PlayerDieHandler();
+    public static event PlayerDieHandler OnPlayerDie;
     IEnumerator Start()
     {
         currHp = initHp;
@@ -81,5 +84,12 @@ public class PlayerCtrl : MonoBehaviour
     void PlayerDie()
     {
         Debug.Log("Player Die !");
+
+        // GameObject[] monsters = GameObject.FindGameObjectsWithTag("MONSTER");
+        // foreach (GameObject monster in monsters)
+        // {
+        //     monster.SendMessage("OnPlayerDie", SendMessageOptions.DontRequireReceiver);
+        // }
+        OnPlayerDie();
     }
 }

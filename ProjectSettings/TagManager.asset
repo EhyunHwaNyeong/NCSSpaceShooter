@@ -9,6 +9,7 @@ TagManager:
   - PUNCH
   - MONSTER_BODY
   - MONSTER_PUNCH
+  - MONSTER
   layers:
   - Default
   - TransparentFX
