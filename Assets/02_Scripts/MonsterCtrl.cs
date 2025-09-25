@@ -33,6 +33,9 @@ public class MonsterCtrl : MonoBehaviour
     readonly int hashHit = Animator.StringToHash("Hit");
     readonly int hashPlayerDie = Animator.StringToHash("PlayerDie");
     readonly int hashSpeed = Animator.StringToHash("Speed");
+    readonly int hashDie = Animator.StringToHash("Die");
+
+    int hp = 100;
     void OnEnable()
     {
         PlayerCtrl.OnPlayerDie += this.OnPlayerDie;
@@ -56,6 +59,7 @@ public class MonsterCtrl : MonoBehaviour
         while (!isDie)
         {
             yield return new WaitForSeconds(0.3f);
+            if (state == State.DIE) yield break;
 
             float distance = Vector3.Distance(playerTr.position, monsterTr.position);
 
@@ -96,6 +100,10 @@ public class MonsterCtrl : MonoBehaviour
                     break;
 
                 case State.DIE:
+                    isDie = true;
+                    agent.isStopped = true;
+                    anim.SetTrigger(hashDie);
+                    GetComponent<CapsuleCollider>().enabled = false;
                     break;
             }
             yield return new WaitForSeconds(0.3f);
@@ -110,6 +118,12 @@ public class MonsterCtrl : MonoBehaviour
             Vector3 pos = coll.GetContact(0).point;
             Quaternion rot = Quaternion.LookRotation(-coll.GetContact(0).normal);
             ShowBooldEffect(pos, rot);
+
+            hp -= 10;
+            if (hp <= 0)
+            {
+                state = State.DIE;
+            }
         }
     }
     void ShowBooldEffect(Vector3 pos, Quaternion rot)
